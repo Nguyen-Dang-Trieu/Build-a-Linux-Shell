@@ -1,0 +1,32 @@
+Parts of a Shell Program: 3 parts
+- The Parser
+- The Executor
+- Shell Subsystems
+
+The Parser: dùng để đọc những command line ví dụ như là ls -al và đưa nó vào Command Table 
+The Executor: dùng để tạo những process để giao tiếp
+Shell Subsystems: 
+
+Sử dụng Lex và Yacc để thực hiện Parser
+- Dùng để biên dịch, ..., tiền xử lí
+
+Parser được chia làm 2 phần
+- Lexical Analyzer (or Lexer): nhận kí tự đầu vào, và tập hợp chúng lại thành 1 words gọi là tokens
+- Parser: được dùng để xử lí những tokens theo ngữ pháp và build the command table
+
+Ví dụ: command line: ls -al a* | grep me > file1
+
+| : là pipe
+ls -al a*
+- cờ -a: dùng để hiện tất cả các file, bao gồm cả file ẩn
+- cờ -l: liệt kê thông tin về file đó
+
+grep me : tìm kiếm "me" trong các file sau khi tìm được thì lưu vào file1
+
+
+** Các token sẽ được mô tả trong file shell.l
+file shell.l sẽ được xử lí với lex
+file shell.y sẽ được lí với yacc
+
+(lex và yacc là những lệnh tiêu chuẩn trong UNIX) 
+=> Dùng lex và yacc để xây dựng Command Table cần thiết cho Shell
