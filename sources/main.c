@@ -34,7 +34,7 @@ char *read_cmd(void)
 {
 	char buf[1024];
 	char *ptr = NULL;
-	char ptrlen = 0;
+	int ptrlen = 0;
 	
 	while(fgets(buf, 1024, stdin))  // điều kiện đúng khi fgets() thành công
 	{
