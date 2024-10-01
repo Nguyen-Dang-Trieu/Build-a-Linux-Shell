@@ -47,6 +47,11 @@ char *read_cmd(void)
 		if(!ptr)
 		{
 			ptr = (char *)malloc(buflen + 1);
+			if(!ptr) // !ptr == true khi ptr = NULL
+		        {
+				fprintf(stderr, "error: failed to allo buffer: %s\n", strerror(errno));
+				return NULL;
+			}
 		}
 		else{ // mở rộng vùng nhớ do ptr trỏ tới
 			char *ptr2 = (char *)realloc(ptr, ptrlen + buflen + 1);
@@ -57,14 +62,9 @@ char *read_cmd(void)
 			else  // nếu cấp phát vùng nhớ thất bại thì sẽ giải phóng luôn vùng nhớ cũ ptr
 			{
 				free(ptr);
-				ptr = NULL; // để tránh con trỏ trỏ tới vùng nhớ không hợp lệ
+				fprintf(stderr, "error: failed to allocate buffer: %s\n", strerror(errno));
+				return NULL;
 			}
-		}
-		
-		if(!ptr) // !ptr == true khi ptr = NULL
-		{
-			fprintf(stderr, "error: failed to allo buffer: %s\n", strerror(errno));
-			return NULL;
 		}
 		
 		strcpy(ptr + ptrlen, buf); 
