@@ -79,7 +79,15 @@ char *read_cmd(void)
 			// buf[buflen - 2] != '\\' :dùng để kiểm tra xem có kí tự \ hay không 
 			if(buflen == 1 || buf[buflen - 2] != '\\') 
 			{
-				return ptr;
+				//echo Hello world -> Hello world
+				char *ptr_result = (char *)malloc(strlen(ptr + 4) + 1);
+				if(!ptr_result){
+					fprintf(stderr, "error: failed to allocate memory for ptr_result: %s\n", strerror(errno));
+					return NULL;
+				}
+				strcpy(ptr_result, ptr + 4);
+				free(ptr);
+				return ptr_result;
 			}
 			
 			ptr[ptrlen + buflen - 2] = '\0';
